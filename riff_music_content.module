@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Riff Music Content feature.
+ */
+
+include_once('riff_music_content.features.inc');
