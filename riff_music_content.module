@@ -5,3 +5,22 @@
  */
 
 include_once('riff_music_content.features.inc');
+
+function riff_music_content_theme_registry_alter(&$theme_registry) {
+	$theme_registry['node__album'] = array(
+		'template' => drupal_get_path('module', 'riff_music_content') . '/templates/node--album',
+		'type' => 'module',
+	);
+	$theme_registry['node__song'] = array(
+		'template' => drupal_get_path('module', 'riff_music_content') . '/templates/node--song',
+		'type' => 'module',
+	);
+}
+
+function riff_music_content_preprocess_node(&$vars) {
+	if (isset($vars['node']->type)) {
+		dpm($vars);
+		$vars['theme_hook_suggestions'][] =  'node__' . $vars['node']->type;
+		drupal_add_css(drupal_get_path('module', 'riff_music_content') . '/css/node-' . $vars['node']->type . '.css');
+	}
+}
