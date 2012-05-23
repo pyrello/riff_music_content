@@ -5,3 +5,35 @@
  */
 
 include_once('riff_music_content.features.inc');
+
+function riff_music_content_theme_registry_alter(&$theme_registry) {
+	$theme_registry['node__album'] = array(
+		'template' => drupal_get_path('module', 'riff_music_content') . '/templates/node--album',
+		'type' => 'module',
+	);
+	$theme_registry['node__song'] = array(
+		'template' => drupal_get_path('module', 'riff_music_content') . '/templates/node--song',
+		'type' => 'module',
+	);
+}
+
+function riff_music_content_preprocess_node(&$variables) {
+	$type = $variables['node']->type;
+	if ($type == ('album' || 'song')) {
+		$variables['theme_hook_suggestions'][] =  'node__' . $type;
+		drupal_add_css(drupal_get_path('module', 'riff_music_content') . '/css/node-' . $type . '.css');
+		if ($type == 'album') {
+			// itemscope itemtype="http://www.schema.org/MusicAlbum"
+			$variables['attributes_array']['itemscope'] = '';
+			$variables['attributes_array']['itemtype'] = 'http://www.schema.org/MusicAlbum';
+			$variables['title_attributes_array']['itemprop'] = 'name';
+		} else if ($type == 'song') {
+		}
+	}
+}
+
+function riff_base_preprocess_image(&$variables) {
+	if (isset($variables['style_name']) && $variables['style_name'] == 'art-medium') {
+		unset ($variables['height'], $variables['attributes']['height']);
+	}
+}

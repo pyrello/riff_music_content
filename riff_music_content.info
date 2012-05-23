@@ -27,3 +27,5 @@ features[field_group][] = "group_album_download_details|node|album|form"
 features[field_group][] = "group_song_title_path|node|song|form"
 features[node][] = "album"
 features[node][] = "song"
+stylesheets[all][] = node-album.css
+stylesheets[all][] = node-song.css
