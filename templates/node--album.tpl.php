@@ -1,9 +1,8 @@
-<article<?php print $attributes; dpm($content); ?>>
+<article<?php print $attributes; ?>>
 	<div class="node-right">
-  	[image]
+  	<?php print render($content['field_album_image']); ?>
   </div>
   <div class="node-left">
-    <?php print $user_picture; ?>
     <?php if (!$page && $title): ?>
     <header>
       <?php print render($title_prefix); ?>
@@ -13,6 +12,7 @@
     <?php endif; ?>
     
     <?php if ($display_submitted): ?>
+    <?php print $user_picture; ?>
     <footer class="submitted"><?php print $date; ?> -- <?php print $name; ?></footer>
     <?php endif; ?>  
     
